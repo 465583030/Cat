@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    android:padding="3dp" >
+
+    <TextView
+        android:id="@+id/chat_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="time"
+        android:textColor="#ffffff"
+        android:textSize="9sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chat_time" >
+
+        <LinearLayout
+            android:id="@+id/cat_container"
+            android:layout_marginRight="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="#00000000"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <ImageView
+                android:id="@+id/iv_cat_head"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/pic_cat_head" />
+
+            <TextView
+                android:id="@+id/cat_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/pic_tvbg_cat"
+                android:gravity="center_vertical"
+                android:text="我嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个v"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/client_container"
+            android:layout_marginLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="#00000000" >
+
+            <ImageView
+                android:id="@+id/iv_client_head"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/pic_client_head" />
+
+            <TextView
+                android:id="@+id/chatto_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/iv_client_head"
+                android:background="@drawable/pic_tvbg_client"
+                android:gravity="center_vertical"
+                android:text="我v关键是低功耗共和党公会都个合适的韩国帅哥谁的风格害怕护肤都是高水平的刮胡刀功夫个地方顾对方给is大概IU盾塑钢idv"
+                android:textColor="#000000"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

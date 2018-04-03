@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="gold">#ffb89766</color>
+    <color name="gray">#ffa3a3a3</color>
+    <color name="red">#ffff0000</color>
+    <color name="gray_font">#aaffffff</color>
+    <color name="setting_item_text">#ff333333</color>
+    <color name="send_bg_on">#22ffffff</color>
+    <color name="send_off">#aaffffff</color>
+    <color name="send_on">#ffffff</color>
+    <color name="theme">#002563</color>
+    <!--****************************************************************************-->
+    <!--悬浮窗颜色设置-->
+    <!--悬浮窗背景色-->
+    <color name="colorSuspendBG">#bd1a1a55</color>
+    <!--悬浮窗边框色-->
+    <color name="colorSuspendBorder">#f43333ff</color>
+    <!--悬浮窗EditText文本色-->
+    <color name="colorSuspendET">#e9ededf4</color>
+    <!--悬浮窗EditText文本背景色-->
+    <color name="colorSuspendETBG">#9a2e2e8c</color>
+    <!--悬浮窗EditText提示文本色-->
+    <color name="colorSuspendETHint">#e9505058</color>
+    <!--悬浮窗EditText边框色-->
+    <color name="colorSuspendETBorder">#e975759c</color>
+    <!--TextView字体色-->
+    <color name="colorSuspendTV">#e3cecece</color>
+    <!--悬浮窗EditText文本色-->
+    <!--****************************************************************************-->
+</resources>

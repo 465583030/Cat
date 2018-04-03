@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Cat.iml" filepath="$PROJECT_DIR$/Cat.iml" />
+      <module fileurl="file://F:\DOCUMENTS\AndroidStudioProjects\Cat\cat\app.iml" filepath="F:\DOCUMENTS\AndroidStudioProjects\Cat\cat\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baiduvoice/baiduvoice.iml" filepath="$PROJECT_DIR$/baiduvoice/baiduvoice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cat/cat.iml" filepath="$PROJECT_DIR$/cat/cat.iml" />
+      <module fileurl="file://$PROJECT_DIR$/detector/detector.iml" filepath="$PROJECT_DIR$/detector/detector.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:alpha="0.8"
+    android:background="@drawable/pic_main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#88000000"
+        android:paddingBottom="5.0dip"
+        android:paddingTop="5.0dip" >
+
+        <ImageButton
+            android:id="@+id/ib_back"
+            android:layout_width="30.0dip"
+            android:layout_height="30.0dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5.0dip"
+            android:background="#00000000"
+            android:scaleType="centerInside"
+            android:src="@drawable/pic_back_setting" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="设置"
+            android:textColor="#ffffffff"
+            android:textSize="20.0sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/rl_font_setting"
+                style="@style/style_rl_bgc"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/activity_setting_item_height" >
+
+                <TextView
+                    style="@style/style_tv_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:text="@string/str_font_setting" />
+
+                <ImageView
+                    style="@style/style_iv"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/pic_back_setting" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/rl_bg_setting"
+                style="@style/style_rl_bgc"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/activity_setting_item_height"
+                android:layout_marginTop="10.0dip" >
+
+                <TextView
+                    style="@style/style_tv_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:text="@string/str_bg_setting" />
+
+                <ImageView
+                    style="@style/style_iv"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/pic_back_setting" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/rl_theme_setting"
+                style="@style/style_rl_bgc"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/activity_setting_item_height"
+                android:layout_marginTop="10.0dip" >
+
+                <TextView
+                    style="@style/style_tv_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:text="@string/str_theme_setting" />
+
+                <ImageView
+                    style="@style/style_iv"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/pic_back_setting" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/rl_secret_setting"
+                style="@style/style_rl_bgc"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/activity_setting_item_height"
+                android:layout_marginTop="10.0dip" >
+
+                <TextView
+                    style="@style/style_tv_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:text="@string/str_secret_setting" />
+
+                <ImageView
+                    style="@style/style_iv"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/pic_back_setting" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/rl_window_setting"
+                style="@style/style_rl_bgc"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/activity_setting_item_height"
+                android:layout_marginTop="10.0dip" >
+
+                <TextView
+                    style="@style/style_tv_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:text="界面设置" />
+
+                <ImageView
+                    style="@style/style_iv"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/pic_back_setting" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/rl_about"
+                style="@style/style_rl_bgc"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/activity_setting_item_height"
+                android:layout_marginTop="10.0dip" >
+
+                <TextView
+                    style="@style/style_tv_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:text="@string/str_about" />
+
+                <ImageView
+                    style="@style/style_iv"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/pic_back_setting" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/rl_feedback"
+                style="@style/style_rl_bgc"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/activity_setting_item_height"
+                android:layout_marginTop="10.0dip" >
+
+                <TextView
+                    style="@style/style_tv_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:text="@string/str_feedback" />
+
+                <ImageView
+                    style="@style/style_iv"
+                    android:layout_width="20.0dip"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/pic_back_setting" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@id/rl_checkup"
+                style="@style/style_rl_bgc"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/activity_setting_item_height"
+                android:layout_marginTop="10.0dip" >
+
+                <TextView
+                    style="@style/style_tv_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5.0dip"
+                    android:text="@string/str_checkup" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

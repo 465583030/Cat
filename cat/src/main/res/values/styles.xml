@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppBaseTheme" parent="@android:style/Theme.Light" />
+    <style name="AppTheme" parent="@style/AppBaseTheme" />
+    <style name="style_rl_bgc">
+        <item name="android:background">#33000000</item>
+    </style>
+    <style name="style_tv_item" parent="@android:style/Widget.TextView">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textColor">#eeffffff</item>
+    </style>
+    <style name="style_iv">
+        <item name="android:layout_marginRight">15.0dip</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:rotation">180.0</item>
+    </style>
+    <style name="style_main_bt_send">
+        <item name="android:textColor">#aaffffff</item>
+        <item name="android:background">@drawable/button_shape</item>
+        <item name="android:layout_width">60.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:text">发送</item>
+    </style>
+    <style name="style_main_ib_bottom">
+        <item name="android:background">#00ffffff</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+    <style name="style_main_et">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textColorHint">#aaffffff</item>
+        <item name="android:background">@drawable/input_shape</item>
+        <item name="android:paddingLeft">10.0dip</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_marginLeft">10.0dip</item>
+        <item name="android:layout_marginRight">5.0dip</item>
+        <item name="android:hint">@string/please_input_content</item>
+        <item name="android:maxLines">128</item>
+        <item name="android:layout_weight">2.0</item>
+    </style>
+    <style name="style_main_ll">
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_margin">5.0dip</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+    <style name="style_main_setting">
+        <item name="android:background">#00000000</item>
+        <item name="android:layout_width">25.0dip</item>
+        <item name="android:layout_height">25.0dip</item>
+        <item name="android:layout_marginLeft">5.0dip</item>
+        <item name="android:src">@drawable/pic_client_head</item>
+        <!--<item name="android:scaleType">fitXY</item>-->
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <!--自定义dialog背景全透明无边框theme -->
+    <style name="MyDialog" parent="android:style/Theme.Dialog">
+        <!--背景颜色及和透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否去除标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否去除边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+</resources>

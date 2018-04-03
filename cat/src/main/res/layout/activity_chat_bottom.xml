@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ll_microphone"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="#55ff00ff"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll_image"
+        android:layout_width="fill_parent"
+        android:layout_height="100.0dip"
+        android:background="#55ffff00"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll_add"
+        android:layout_width="fill_parent"
+        android:layout_height="120.0dip"
+        android:background="#5500ffff"
+        android:orientation="vertical"
+        android:visibility="gone" />
+
+</LinearLayout>

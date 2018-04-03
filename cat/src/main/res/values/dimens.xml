@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_welcome_dot_front_width">25.0dip</dimen>
+    <dimen name="activity_welcome_dot_front_height">25.0dip</dimen>
+    <dimen name="activity_welcome_dot_back_width">25.0dip</dimen>
+    <dimen name="activity_welcome_dot_back_height">25.0dip</dimen>
+    <dimen name="activity_welcome_fragment_width">100.0dip</dimen>
+    <dimen name="activity_welcome_fragment_height">25.0dip</dimen>
+    <dimen name="activity_setting_item_height">40.0dip</dimen>
+</resources>
