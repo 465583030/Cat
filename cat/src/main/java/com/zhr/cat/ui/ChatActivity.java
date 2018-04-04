@@ -34,6 +34,8 @@ import com.zhr.cat.tools.camera.CameraHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.zhr.cat.tools.Utils.transBar;
+
 /**
  * 聊天交互界面
  *
@@ -165,6 +167,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        transBar(this);
         // 加载控件
         civ_user = (CircleImageView) findViewById(R.id.civ_user);
         ib_camera = (ImageButton) findViewById(R.id.ib_camera);
@@ -181,9 +184,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         et_content = (EditText) findViewById(R.id.et_content);
         bt_send = (Button) findViewById(R.id.bt_send);
         lv_content = (ListView) findViewById(R.id.lv_content);
-
         cameraSurfaceView = findViewById(R.id.svCamera);
-
         cameraHelper = new CameraHelper(cameraSurfaceView, this);
         /** 设置监听*/
         civ_user.setOnClickListener(this);
@@ -375,12 +376,14 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
             if (ll_face.getVisibility() == View.GONE) {
                 ll_camera_and_face.setVisibility(View.GONE);
             }
+            cameraHelper.releaseCamera();
         } else {
             ll_camera_and_face.setVisibility(View.VISIBLE);
             selectState[SELECT_STATE_CAMERA] = true;
             ib_camera.setImageResource(R.drawable.pic_main_camera_on);
             cameraSurfaceView.setVisibility(View.VISIBLE);
             ll_camera.setVisibility(View.VISIBLE);
+            cameraHelper.onResume();
         }
     }
 
