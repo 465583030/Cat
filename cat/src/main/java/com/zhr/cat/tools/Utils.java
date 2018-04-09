@@ -29,7 +29,7 @@ public class Utils {
     /**
      * 透明任务栏
      */
-    public static void transBar(Activity context) {
+    public static void setTransBar(Activity context) {
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = context.getWindow().getDecorView();
             int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN

@@ -25,14 +25,12 @@ import android.widget.TextView;
 import com.zhr.cat.R;
 import com.zhr.cat.services.MyService;
 import com.zhr.cat.services.ServicesHelper;
-import com.zhr.cat.tools.Utils;
 import com.zhr.cat.tools.Constant;
 import com.zhr.cat.tools.RunTimes;
+import com.zhr.cat.tools.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.zhr.cat.tools.Utils.transBar;
 
 public class GuideActivity extends Activity implements OnClickListener, ServiceConnection {
     private MyService myService;
@@ -67,7 +65,6 @@ public class GuideActivity extends Activity implements OnClickListener, ServiceC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        transBar(this);
         runTimes = new RunTimes(this);
         if (runTimes.isFirstOpen()) {/** 判断是否是第一次启动,第一次启动 */
             System.out.println("First Open....");
@@ -268,5 +265,10 @@ public class GuideActivity extends Activity implements OnClickListener, ServiceC
     protected void onDestroy() {
         super.onDestroy();
         unbindService(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

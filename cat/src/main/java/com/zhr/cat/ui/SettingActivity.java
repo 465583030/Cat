@@ -8,8 +8,6 @@ import android.widget.ImageButton;
 
 import com.zhr.cat.R;
 
-import static com.zhr.cat.tools.Utils.transBar;
-
 public class SettingActivity extends Activity implements OnClickListener {
 
 	private ImageButton ib_back;
@@ -18,8 +16,7 @@ public class SettingActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
-		transBar(this);
-		ib_back = (ImageButton) findViewById(R.id.ib_back);
+		ib_back = findViewById(R.id.ib_back);
 		ib_back.setOnClickListener(this);
 	}
 

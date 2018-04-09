@@ -13,11 +13,11 @@ import android.os.IBinder;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,13 +28,13 @@ import com.zhr.cat.domain.MyListViewAdapter;
 import com.zhr.cat.domain.TextInfo;
 import com.zhr.cat.domain.TextInfoDAO;
 import com.zhr.cat.services.MyService;
+import com.zhr.cat.tools.ChatImpl;
 import com.zhr.cat.tools.CircleImageView;
-import com.zhr.cat.tools.camera.CameraHelper;
+import com.zhr.cat.tools.IChat;
+import com.zhr.cat.tools.camera.CameraPreview;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.zhr.cat.tools.Utils.transBar;
 
 /**
  * 聊天交互界面
@@ -46,7 +46,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
      * 保存应用启动有关的配置文件的名称
      */
     private static SharedPreferences sp;
-    private static String openconfig = "openconfig";
+    private static String OPEN_CONFIG = "OPEN_CONFIG";
     /**
      * 设置 点击跳转设置界面
      */
@@ -135,12 +135,13 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
      */
     private String textFromClient;
     /**
-     * 相机SurfaceView
+     * 相机FrameLayout
      */
-    private SurfaceView cameraSurfaceView;
-    private CameraHelper cameraHelper;
+    private FrameLayout flCamera;
     private MyService myService;
-//    IInteractWindow interactWindow;
+    //    IInteractWindow interactWindow;
+
+    private IChat chater =new ChatImpl();
     private Handler myHandler = new Handler() {// 处理消息的handler
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
@@ -159,15 +160,12 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
                     break;
             }
         }
-
-        ;
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        transBar(this);
         // 加载控件
         civ_user = (CircleImageView) findViewById(R.id.civ_user);
         ib_camera = (ImageButton) findViewById(R.id.ib_camera);
@@ -184,8 +182,10 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         et_content = (EditText) findViewById(R.id.et_content);
         bt_send = (Button) findViewById(R.id.bt_send);
         lv_content = (ListView) findViewById(R.id.lv_content);
-        cameraSurfaceView = findViewById(R.id.svCamera);
-        cameraHelper = new CameraHelper(cameraSurfaceView, this);
+
+        flCamera = findViewById(R.id.flCamera);
+        CameraPreview mPreview = new CameraPreview(this);
+        flCamera.addView(mPreview);
         /** 设置监听*/
         civ_user.setOnClickListener(this);
         ib_camera.setOnClickListener(this);
@@ -200,10 +200,9 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         ll_camera.setOnClickListener(this);
         ll_face.setOnClickListener(this);
         et_content.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
+                if (s.toString().trim().length()>0) {
                     bt_send.setEnabled(true);
                     bt_send.setBackgroundResource(R.drawable.button_shape2);
                     bt_send.setTextColor(getResources().getColor(R.color.send_on));
@@ -220,7 +219,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
+                if (s.toString().trim().length()>0) {
                     bt_send.setBackgroundResource(R.drawable.button_shape2);
                     bt_send.setTextColor(getResources().getColor(R.color.send_on));
                 } else {
@@ -233,13 +232,12 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         /** 读取并设置布局 */
         readState();
         /** 给ListView准备数据 */
-        textInfos = new ArrayList<TextInfo>();
+        textInfos = new ArrayList<>();
         dao = new TextInfoDAO(this, "textinfo.db");
         textInfos = dao.findAll();
         myAdapter = new MyListViewAdapter(this, textInfos);
         lv_content.setAdapter(myAdapter);
         lv_content.setSelection(textInfos.size() - 1);
-
         bindService(new Intent(this, MyService.class), this, Context.BIND_AUTO_CREATE);
     }
 
@@ -251,7 +249,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         for (int i = 0; i < selectState.length; i++) {
             selectState[i] = false;
         }
-        sp = getSharedPreferences(openconfig, Context.MODE_PRIVATE);
+        sp = getSharedPreferences(OPEN_CONFIG, Context.MODE_PRIVATE);
         selectState[SELECT_STATE_CAMERA] = sp.getBoolean("camera", false);
         selectState[SELECT_STATE_FACE] = sp.getBoolean("face", false);
         selectState[SELECT_STATE_MICROPHONE] = sp.getBoolean("microphone", false);
@@ -284,7 +282,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
      * 保存布局状态
      */
     private void saveState() {
-        sp = getSharedPreferences(openconfig, Context.MODE_PRIVATE);
+        sp = getSharedPreferences(OPEN_CONFIG, Context.MODE_PRIVATE);
         Editor editor = sp.edit();
         editor.putBoolean("camera", selectState[SELECT_STATE_CAMERA]);
         editor.putBoolean("face", selectState[SELECT_STATE_FACE]);
@@ -350,16 +348,22 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
             public synchronized void start() {
                 super.start();
             }
-
             public void run() {
                 Message msg = new Message();
                 msg.what = CAT_PROCESS_FINISH;
                 msg.obj = processContent(textFromClient);
                 myHandler.sendMessage(msg);
             }
-
             private String processContent(String textFromClient) {
-                return "接收到：" + textFromClient;
+                try {
+                    String chat = chater.chat(IChat.ChatType.TYPE_TEXT, textFromClient);
+                    myService.talk(chat);
+                    return chat;
+                } catch (Exception e) {
+                    myService.talk("发生了异常请稍候重试");
+                    e.printStackTrace();
+                    return "发生了异常请稍候重试";
+                }
             }
         }.start();
     }
@@ -371,19 +375,15 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         if (selectState[SELECT_STATE_CAMERA]) {
             selectState[SELECT_STATE_CAMERA] = false;
             ib_camera.setImageResource(R.drawable.pic_main_camera_off);
-            cameraSurfaceView.setVisibility(View.GONE);
             ll_camera.setVisibility(View.GONE);
             if (ll_face.getVisibility() == View.GONE) {
                 ll_camera_and_face.setVisibility(View.GONE);
             }
-            cameraHelper.releaseCamera();
         } else {
             ll_camera_and_face.setVisibility(View.VISIBLE);
             selectState[SELECT_STATE_CAMERA] = true;
             ib_camera.setImageResource(R.drawable.pic_main_camera_on);
-            cameraSurfaceView.setVisibility(View.VISIBLE);
             ll_camera.setVisibility(View.VISIBLE);
-            cameraHelper.onResume();
         }
     }
 
@@ -485,11 +485,17 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
     /**
      * 响应 点击设置键
      */
     private void onClickSetting() {
-        startActivity(new Intent(this, SettingActivity.class));
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -501,30 +507,12 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-
     }
 
     @Override
     protected void onDestroy() {
         saveState();
-        super.onDestroy();
         unbindService(this);
+        super.onDestroy();
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (cameraHelper != null) {
-            cameraHelper.releaseCamera();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (cameraHelper != null) {
-            cameraHelper.onResume();
-        }
-    }
-
 }

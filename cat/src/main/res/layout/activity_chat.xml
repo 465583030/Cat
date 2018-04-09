@@ -37,10 +37,10 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:background="#22000000"
             android:id="@+id/ll_camera_and_face"
             android:layout_width="fill_parent"
-            android:layout_height="160.0dip"
+            android:layout_height="200.0dip"
+            android:background="#22000000"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -48,29 +48,37 @@
                 android:id="@+id/ll_camera"
                 style="@style/style_main_ll"
                 android:orientation="vertical">
-                    <SurfaceView
-                        android:id="@+id/svCamera"
-                        android:layout_width="175dip"
-                        android:layout_height="144dip"
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <FrameLayout
+                        android:id="@+id/flCamera"
+                        android:layout_width="163dip"
+                        android:layout_height="200dip"
                         android:layout_gravity="center" />
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_face"
                 style="@style/style_main_ll">
+
                 <ImageView
                     android:id="@+id/iv_face"
-                    android:layout_width="fill_parent"
+                    android:layout_width="163dip"
                     android:layout_height="fill_parent"
                     android:src="@drawable/pic_main_face_default_white" />
             </LinearLayout>
         </LinearLayout>
 
         <ListView
-            android:divider="#00000000"
             android:id="@+id/lv_content"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:divider="#00000000"
             android:listSelector="@android:color/transparent"
             android:transcriptMode="alwaysScroll" />
     </LinearLayout>

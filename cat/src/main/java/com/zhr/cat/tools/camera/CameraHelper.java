@@ -80,8 +80,10 @@ public class CameraHelper implements SurfaceHolder.Callback {
     }
 
     public void onResume() {
+        Log.i("zhr","onResume camera =" + camera);
         if (camera == null) {
             this.camera = getFrontCamera();
+            Log.i("zhr","onResume Front camera =" + this.camera);
             if (camera == null) {
                 camera = getBackCamera();
             }
