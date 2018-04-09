@@ -17,72 +17,85 @@ import java.util.Locale;
 
 public class MyListViewAdapter extends BaseAdapter implements ListAdapter {
 
-	private Context context;
-	private List<TextInfo> textInfos;
+    private Context context;
+    private List<TextInfo> textInfos;
 
-	class ViewHodler {/**/
-		CircleImageView catIcon, clientIcon;
-		TextView catContent, clientContent, time;
-		ViewGroup catContainer, clientContainer;
-	}
+    class ViewHolder {/**/
+        CircleImageView catIcon, clientIcon;
+        TextView catContent, clientContent, time;
+        ViewGroup catContainer, clientContainer;
+//        String lastTime=null;
+    }
 
-	public MyListViewAdapter(Context contex, List<TextInfo> textInfos) {
-		this.context = contex;
-		this.textInfos = textInfos;
-	}
+    public MyListViewAdapter(Context contex, List<TextInfo> textInfos) {
+        this.context = contex;
+        this.textInfos = textInfos;
+    }
 
-	public void setList(List<TextInfo> textInfos) {
-		this.textInfos = textInfos;
-	}
+    public void setList(List<TextInfo> textInfos) {
+        this.textInfos = textInfos;
+    }
 
-	@Override
-	public int getCount() {
-		return textInfos.size();
-	}
+    @Override
+    public int getCount() {
+        return textInfos.size();
+    }
 
-	@Override
-	public Object getItem(int position) {
-		return textInfos.get(position);
-	}
+    @Override
+    public Object getItem(int position) {
+        return textInfos.get(position);
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return 0;
-	}
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHodler hodler;
-		if (convertView == null) {
-			hodler = new ViewHodler();
-			convertView = LayoutInflater.from(context).inflate(R.layout.chat_lv_item, null);
-			hodler.catIcon=convertView.findViewById(R.id.iv_cat_head);
-			hodler.clientIcon=convertView.findViewById(R.id.iv_client_head);
-			hodler.catContainer = (ViewGroup) convertView.findViewById(R.id.cat_container);
-			hodler.clientContainer = (ViewGroup) convertView.findViewById(R.id.client_container);
-			hodler.catContent = (TextView) convertView.findViewById(R.id.cat_content);
-			hodler.clientContent = (TextView) convertView.findViewById(R.id.chatto_content);
-			hodler.time = (TextView) convertView.findViewById(R.id.chat_time);
-			convertView.setTag(hodler);
-		} else {
-			hodler = (ViewHodler) convertView.getTag();
-		}
-		String time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.CHINA)
-				.format(textInfos.get(position).getTime());
-		int type = textInfos.get(position).getType();
-		String content = textInfos.get(position).getContent();
-		if (type == 1) {// 消息来自Client
-			hodler.catContainer.setVisibility(View.GONE);
-			hodler.clientContainer.setVisibility(View.VISIBLE);
-			hodler.clientContent.setText(content);
-			hodler.time.setText(time);
-		} else {
-			hodler.catContainer.setVisibility(View.VISIBLE);
-			hodler.clientContainer.setVisibility(View.GONE);
-			hodler.catContent.setText(content);
-			hodler.time.setText(time);
-		}
-		return convertView;
-	}
-
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+        if (convertView == null) {
+            holder = new ViewHolder();
+            convertView = LayoutInflater.from(context).inflate(R.layout.chat_lv_item, null);
+            holder.catIcon = convertView.findViewById(R.id.iv_cat_head);
+            holder.clientIcon = convertView.findViewById(R.id.iv_client_head);
+            holder.catContainer = convertView.findViewById(R.id.cat_container);
+            holder.clientContainer = convertView.findViewById(R.id.client_container);
+            holder.catContent = convertView.findViewById(R.id.cat_content);
+            holder.clientContent = convertView.findViewById(R.id.chatto_content);
+            holder.time = convertView.findViewById(R.id.chat_time);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        String time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.CHINA)
+                .format(textInfos.get(position).getTime());
+        int type = textInfos.get(position).getType();
+        String content = textInfos.get(position).getContent();
+        if (type == 1) {// 消息来自Client
+            holder.catContainer.setVisibility(View.GONE);
+            holder.clientContainer.setVisibility(View.VISIBLE);
+            holder.clientContent.setText(content);
+        } else {
+            holder.catContainer.setVisibility(View.VISIBLE);
+            holder.clientContainer.setVisibility(View.GONE);
+            holder.catContent.setText(content);
+        }
+//        if (holder.lastTime==null){
+//            holder.lastTime=time;
+//            holder.time.setText(time);
+//        }else{
+//            int endIndex=time.length()-3;
+//            System.out.println("******************");
+//            System.out.println("time = " + time);
+//            System.out.println("lastTime = " + holder.lastTime);
+//            if (!time.substring(0,endIndex).equals(holder.lastTime.substring(0,endIndex))){
+//
+//            }else {
+//                holder.time.setText("");
+//            }
+//        }
+        holder.time.setText(time);
+        return convertView;
+    }
 }

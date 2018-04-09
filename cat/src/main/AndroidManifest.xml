@@ -31,7 +31,9 @@
 
     <!--必须这个配置-->
     <!--   android:name=".APP"-->
+    <!--android:hardwareAccelerated="false"-->
     <application
+        android:largeHeap="true"
         android:name=".voice.iFlyTEK.APP"
         android:allowBackup="true"
         android:fitsSystemWindows="true"

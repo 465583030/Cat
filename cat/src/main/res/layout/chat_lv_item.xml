@@ -3,31 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#00000000"
-    android:padding="3dp" >
+    android:padding="3dp">
 
     <TextView
         android:id="@+id/chat_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="time"
-        android:textColor="#ffffff"
+        android:text=""
+        android:textColor="#dce2dfdf"
         android:textSize="9sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/chat_time" >
+        android:layout_below="@id/chat_time">
 
         <LinearLayout
             android:id="@+id/cat_container"
-            android:layout_marginRight="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_marginRight="50dp"
             android:background="#00000000"
             android:orientation="horizontal"
-            android:visibility="visible" >
+            android:visibility="visible">
 
             <com.zhr.cat.tools.CircleImageView
                 android:id="@+id/iv_cat_head"
@@ -39,20 +39,23 @@
                 android:id="@+id/cat_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/pic_tvbg_cat"
+                android:background="@drawable/chat_client"
                 android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:padding="6dp"
                 android:text="我嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个v"
-                android:textColor="#000000"
+                android:textColor="#fff6f6"
                 android:textSize="14sp" />
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/client_container"
-            android:layout_marginLeft="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="#00000000" >
+            android:layout_marginLeft="50dp"
+            android:background="#00000000">
 
             <com.zhr.cat.tools.CircleImageView
                 android:id="@+id/iv_client_head"
@@ -66,10 +69,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/iv_client_head"
-                android:background="@drawable/pic_tvbg_client"
+                android:background="@drawable/chat_cat"
                 android:gravity="center_vertical"
+                android:padding="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
                 android:text="我v关键是低功耗共和党公会都个合适的韩国帅哥谁的风格害怕护肤都是高水平的刮胡刀功夫个地方顾对方给is大概IU盾塑钢idv"
-                android:textColor="#000000"
+                android:textColor="#d6c4e2"
                 android:textSize="14sp" />
         </RelativeLayout>
     </RelativeLayout>
