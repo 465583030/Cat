@@ -26,8 +26,6 @@ public class BaiDuWakeupHelper implements EventListener, IWakeupHelper {
     private EventManager wp;
     private IWakeupEventListener wakeupListener;
 
-    private static final String TAG = "MyWakeup";
-
     public BaiDuWakeupHelper(Context context, IWakeupEventListener wakeupListener) {
         if (isInited) {
             System.out.println("还未调用release()，请勿新建一个新类");
@@ -81,6 +79,7 @@ public class BaiDuWakeupHelper implements EventListener, IWakeupHelper {
             }
         } else if (SpeechConstant.CALLBACK_EVENT_WAKEUP_ERROR.equals(name)) { // 识别唤醒词报错
             try {
+                System.out.println("params = " + params);
                 JSONObject jsonObject = new JSONObject(params);
                 String word = jsonObject.getString("errorCode");
                 int code = Integer.parseInt(word.substring(0, 1));

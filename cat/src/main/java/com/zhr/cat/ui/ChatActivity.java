@@ -142,8 +142,17 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
     private FrameLayout flCamera;
     private MyService myService;
     //    IInteractWindow interactWindow;
+    /**
+     * 识别到的唤醒词
+     */
     private String wakeupWord = "";
+    /**
+     * 是否用了唤醒
+     */
     private boolean useWakeupFlag = false;
+    /**
+     * 聊天机器人
+     */
     private IChat chater = new ChatImpl();
     private Handler myHandler = new Handler() {// 处理消息的handler
         public void handleMessage(android.os.Message msg) {
@@ -554,8 +563,8 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
     @Override
     public void onRecognize(String result) {
         if (useWakeupFlag) {
-            et_content.setText(wakeupWord+result);
-        }else {
+            et_content.setText(wakeupWord + result);
+        } else {
             et_content.setText(result);
         }
     }

@@ -76,10 +76,9 @@ public class MyService extends Service {
         voice.talk(text);
     }
 
-    public String listen() {
-        return voice.listen();
+    public boolean isTalking(){
+        return voice.isTalking();
     }
-
     public String getString() {
         return "你好...我是服务里的方法，你调用了我....";
     }

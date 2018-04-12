@@ -1,7 +1,21 @@
 package com.zhr.cat.voice.interfaces;
 
+/**
+ * 语音唤醒帮助类接口
+ */
 public interface IWakeupHelper {
-   void startWakeup();
-   void stopWakeup();
-   void releaseWakeup();
+    /**
+     * 开始唤醒
+     */
+    void startWakeup();
+
+    /**
+     * 停止唤醒
+     */
+    void stopWakeup();
+
+    /**
+     * 释放资源
+     */
+    void releaseWakeup();
 }

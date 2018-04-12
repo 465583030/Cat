@@ -26,10 +26,10 @@ public class BaiDuVoiceRecognizeHelper implements EventListener, IVoiceRecognize
     private Context context;
     private boolean enableOffline = false; // 测试离线命令词，需要改成true
     private IVoiceRecognizeEventListener voiceRecognizeEventListener;
-    private String lastResult = "";
-    private static boolean isInited = false;
+    private String lastResult = "";//最后一次识别结果
+    private static boolean isInited = false;//初始化
 
-    public  BaiDuVoiceRecognizeHelper(Context context, IVoiceRecognizeEventListener voiceRecognizeEventListener) {
+    public BaiDuVoiceRecognizeHelper(Context context, IVoiceRecognizeEventListener voiceRecognizeEventListener) {
         this(context, false, voiceRecognizeEventListener);
     }
 
