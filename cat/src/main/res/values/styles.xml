@@ -32,7 +32,7 @@
         <item name="android:background">@drawable/button_shape</item>
         <item name="android:layout_width">60.0dip</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:text">发送</item>
+        <item name="android:text">@string/send_button_text</item>
     </style>
     <style name="style_main_ib_bottom">
         <item name="android:background">#00ffffff</item>
@@ -86,6 +86,7 @@
         <!--是否模糊-->
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
 
 
 </resources>

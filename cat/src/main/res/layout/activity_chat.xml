@@ -21,11 +21,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="@string/app_name"
-            android:textColor="#ff00aaee"
-            android:textSize="24.0sp" />
+            android:textColor="#815a9c"
+            android:textSize="20.0sp" />
     </RelativeLayout>
 
     <LinearLayout

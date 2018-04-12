@@ -52,12 +52,13 @@
                     android:textSize="24.0sp" />
 
                 <TextView
+                    android:textAlignment="center"
                     android:id="@+id/tv_version_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="6.0dip"
                     android:gravity="bottom"
-                    android:text="\ 455"
+                    android:text="1.0"
                     android:textColor="#ffffffff"
                     android:textSize="14.0sp" />
             </LinearLayout>

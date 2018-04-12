@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cat</string>
+    <string name="str_font_setting">Font Setting</string>
+    <string name="str_bg_setting">Background Setting</string>
+    <string name="str_theme_setting">Theme</string>
+    <string name="str_secret_setting">Secret</string>
+    <string name="str_about">About</string>
+    <string name="str_feedback">FeedBack</string>
+    <string name="version_unknown">Unknown Version</string>
+    <string name="please_input_content">Chat With Me !</string>
+    <string name="str_checkup">Check For Update</string>
+    <string name="title_activity_setting">Setting</string>
+    <string name="open_title">Smart Intelligent voice assistant</string>
+    <string name="welcomeTalkString">Hi！Welcome！</string>
+    <string name="first_start_button_text">"Start the artificial intelligence journey! "</string>
+    <string name="setting_title">Setting</string>
+    <string name="window_setting">Window Setting</string>
+    <string name="send_button_text">SEND</string>
+</resources>

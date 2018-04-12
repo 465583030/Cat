@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Cat</string>
+    <string name="app_name">猫猫(Cat)</string>
     <string name="str_font_setting">字体设置</string>
     <string name="str_bg_setting">背景设置</string>
     <string name="str_theme_setting">主题设置</string>
@@ -10,8 +10,12 @@
     <string name="version_unknown">未知版本</string>
     <string name="please_input_content">和我聊聊吧！</string>
     <string name="str_checkup">检查更新</string>
-    <string name="title_activity_setting">SettingActivity</string>
-    <string name="copyright">Copyright©2018 ZHR All rights reserved</string>
+    <string name="title_activity_setting">设置</string>
+    <string name="copyright" translatable="false">Copyright©2018 ZHR All rights reserved</string>
     <string name="open_title">智能手机助手</string>
     <string name="welcomeTalkString">你好！欢迎使用Cat手机助手！</string>
+    <string name="first_start_button_text">开启人工智能之旅！</string>
+    <string name="setting_title">设置</string>
+    <string name="window_setting">界面设置</string>
+    <string name="send_button_text">发送</string>
 </resources>

@@ -44,8 +44,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:padding="6dp"
-                android:text="我嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个v"
-                android:textColor="#fff6f6"
+                android:text="我嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个一个嘎嘎嘎一个一个嘎嘎嘎一个一个嘎嘎嘎一个一个嘎嘎嘎一个一个嘎嘎嘎一个一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个v"
+                android:textColor="#d7d3e4"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -61,7 +61,8 @@
                 android:id="@+id/iv_client_head"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
                 android:src="@drawable/pic_client_head" />
 
             <TextView
@@ -74,8 +75,8 @@
                 android:padding="6dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:text="我v关键是低功耗共和党公会都个合适的韩国帅哥谁的风格害怕护肤都是高水平的刮胡刀功夫个地方顾对方给is大概IU盾塑钢idv"
-                android:textColor="#d6c4e2"
+                android:text="我v关键是哥谁的风格害怕都是高水平的刮胡刀功夫个地方顾对方给is大概IU盾塑钢idv"
+                android:textColor="#dbcfe2"
                 android:textSize="14sp" />
         </RelativeLayout>
     </RelativeLayout>

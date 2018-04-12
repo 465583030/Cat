@@ -3,9 +3,6 @@
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="transparent">#00000000</color>
-    <color name="gold">#ffb89766</color>
-    <color name="gray">#ffa3a3a3</color>
-    <color name="red">#ffff0000</color>
     <color name="gray_font">#aaffffff</color>
     <color name="setting_item_text">#ff333333</color>
     <color name="send_bg_on">#22ffffff</color>
