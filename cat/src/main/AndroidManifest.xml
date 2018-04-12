@@ -40,6 +40,19 @@
         android:icon="@drawable/pic_ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.baidu.speech.APP_ID"
+            android:value="9667449" />
+        <meta-data
+            android:name="com.baidu.speech.API_KEY"
+            android:value="Y1tvDuofHGWOz0XuAYYyLprc" />
+        <meta-data
+            android:name="com.baidu.speech.SECRET_KEY"
+            android:value="VFLG09OhjjMVHuBevD8rKvVcvh7qYEXR" />
+        <!-- 请确认集成后的包名是否正确，本demo的包名是com.baidu.speech.recognizerdemo，在build.gradle文件中查看 -->
+        <service
+            android:name="com.baidu.speech.VoiceRecognitionService"
+            android:exported="false" />
         <!-- 聊天界面 -->
         <activity
             android:name=".ui.ChatActivity"

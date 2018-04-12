@@ -32,6 +32,8 @@ import com.zhr.cat.tools.ChatImpl;
 import com.zhr.cat.tools.CircleImageView;
 import com.zhr.cat.tools.IChat;
 import com.zhr.cat.tools.camera.CameraPreview;
+import com.zhr.cat.voice.interfaces.IVoiceRecognizeEventListener;
+import com.zhr.cat.voice.interfaces.IWakeupEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +43,7 @@ import java.util.List;
  *
  * @author 赵浩燃
  */
-public class ChatActivity extends Activity implements OnClickListener, ServiceConnection {
+public class ChatActivity extends Activity implements OnClickListener, ServiceConnection, IVoiceRecognizeEventListener, IWakeupEventListener {
     /**
      * 保存应用启动有关的配置文件的名称
      */
@@ -133,15 +135,16 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
     /**
      * 来自 客户的消息
      */
-    private String textFromClient;
+
     /**
      * 相机FrameLayout
      */
     private FrameLayout flCamera;
     private MyService myService;
     //    IInteractWindow interactWindow;
-
-    private IChat chater =new ChatImpl();
+    private String wakeupWord = "";
+    private boolean useWakeupFlag = false;
+    private IChat chater = new ChatImpl();
     private Handler myHandler = new Handler() {// 处理消息的handler
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
@@ -202,7 +205,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         et_content.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().trim().length()>0) {
+                if (s.toString().trim().length() > 0) {
                     bt_send.setEnabled(true);
                     bt_send.setBackgroundResource(R.drawable.button_shape2);
                     bt_send.setTextColor(getResources().getColor(R.color.send_on));
@@ -219,7 +222,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().trim().length()>0) {
+                if (s.toString().trim().length() > 0) {
                     bt_send.setBackgroundResource(R.drawable.button_shape2);
                     bt_send.setTextColor(getResources().getColor(R.color.send_on));
                 } else {
@@ -332,10 +335,14 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
     }
 
     private void onClickSend() {
-        textFromClient = et_content.getText().toString().trim();
-        et_content.setText(null);
+        String textFromClient = et_content.getText().toString().trim();
+        et_content.setText("");
+        sendMessage(textFromClient);
+    }
+
+    private void sendMessage(final String content) {
         currentTextInfo = new TextInfo();
-        currentTextInfo.setContent(textFromClient);
+        currentTextInfo.setContent(content);
         currentTextInfo.setTime(System.currentTimeMillis());
         currentTextInfo.setType(1);
         textInfos.add(currentTextInfo);
@@ -348,12 +355,14 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
             public synchronized void start() {
                 super.start();
             }
+
             public void run() {
                 Message msg = new Message();
                 msg.what = CAT_PROCESS_FINISH;
-                msg.obj = processContent(textFromClient);
+                msg.obj = processContent(content);
                 myHandler.sendMessage(msg);
             }
+
             private String processContent(String textFromClient) {
                 try {
                     String chat = chater.chat(IChat.ChatType.TYPE_TEXT, textFromClient);
@@ -503,10 +512,14 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         myService = ((MyService.EchoServiceBinder) binder).getMyService();
         //   myService.talk("欢迎！");
         System.out.println("ChatActivity onService Connected. ");
+        myService.setVoiceRecognizeEventListener(this);
+        myService.setWakeupEventListener(this);
+        myService.getWakeupHelper().startWakeup();
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
+
     }
 
     @Override
@@ -515,4 +528,77 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         unbindService(this);
         super.onDestroy();
     }
+
+    /**
+     * 语音识别接口开始
+     */
+    @Override
+    public void onStartRecognize() {
+
+    }
+
+    @Override
+    public void onStopRecognize() {
+
+    }
+
+    @Override
+    public void onFinishRecognize(String result) {
+        et_content.setText(result);
+        if (useWakeupFlag) {
+            sendMessage(wakeupWord + result);
+            et_content.setText("");
+        }
+    }
+
+    @Override
+    public void onRecognize(String result) {
+        if (useWakeupFlag) {
+            et_content.setText(wakeupWord+result);
+        }else {
+            et_content.setText(result);
+        }
+    }
+
+    @Override
+    public void onCancelRecognize() {
+
+    }
+
+    @Override
+    public void onError(VoiceRecognizeError error) {
+
+    }
+
+    /**
+     * 语音识别接口结束
+     */
+
+    /**
+     * 语音唤醒接口开始
+     */
+    @Override
+    public void onWakeupStart() {
+
+    }
+
+    @Override
+    public void onWakeupSuccess(String word) {
+        wakeupWord = word;
+        useWakeupFlag = true;
+        myService.getVoiceRecognizeHelper().startRecognize();
+    }
+
+    @Override
+    public void onWakeupStop() {
+
+    }
+
+    @Override
+    public void onWakeupError(WakeupError error) {
+
+    }
+    /**
+     * 语音唤醒接口关闭
+     */
 }

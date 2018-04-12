@@ -11,7 +11,7 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
-import com.zhr.cat.voice.IVoice;
+import com.zhr.cat.voice.interfaces.IVoiceTalk;
 
 import java.util.ArrayList;
 
@@ -19,13 +19,13 @@ import java.util.ArrayList;
  * Created by ZHR on 2017/05/25.
  */
 
-public class IFlyTEKVoice implements IVoice{
+public class IFlyTEKVoiceTalk implements IVoiceTalk {
     private Context context;
     private  SpeechSynthesizer mTts;
     private  RecognizerDialog mDialog;
     boolean finishFlag=false;
     private   String resultString;
-    public  IFlyTEKVoice(Context context){
+    public IFlyTEKVoiceTalk(Context context){
         this.context=context;
         initTalk();
     }
