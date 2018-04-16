@@ -3,29 +3,30 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/theme"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_centerInParent="true"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
         android:layout_marginBottom="150dp"
         android:gravity="center_horizontal"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <ImageView
-            android:padding="10dp"
             android:layout_width="220dp"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:padding="10dp"
             android:src="@drawable/pic_ic_launcher" />
+
         <Button
             android:id="@+id/bt_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:background="#5500ffff"
-             android:onClick="OnClickOpenChatActivity"
+            android:onClick="OnClickOpenChatActivity"
             android:paddingBottom="10.0dip"
             android:paddingLeft="15.0dip"
             android:paddingRight="15.0dip"

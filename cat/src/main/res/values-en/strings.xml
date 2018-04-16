@@ -17,4 +17,7 @@
     <string name="setting_title">Setting</string>
     <string name="window_setting">Window Setting</string>
     <string name="send_button_text">SEND</string>
+    <string name="tip_exception">An exception has occurred. Please try again later .</string>
+    <string name="recognize_start">begin recognice</string>
+    <string name="recognize_on">recognizing</string>
 </resources>

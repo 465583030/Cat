@@ -2,21 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ll_microphone"
         android:layout_width="fill_parent"
-        android:layout_height="50.0dip"
-        android:background="#55ff00ff"
+        android:layout_height="120.0dip"
+        android:background="@color/send_bg_on"
         android:orientation="vertical"
-        android:visibility="gone" />
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_microphone_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/chat_item_text_color"
+            android:text="测试" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_image"
         android:layout_width="fill_parent"
-        android:layout_height="100.0dip"
-        android:background="#55ffff00"
+        android:layout_height="120.0dip"
+        android:background="@color/send_bg_on"
         android:orientation="vertical"
         android:visibility="gone" />
 
@@ -24,7 +34,7 @@
         android:id="@+id/ll_add"
         android:layout_width="fill_parent"
         android:layout_height="120.0dip"
-        android:background="#5500ffff"
+        android:background="@color/send_bg_on"
         android:orientation="vertical"
         android:visibility="gone" />
 

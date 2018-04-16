@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#ae2f219b" />
+    <solid android:color="@color/chat_item_text_bg_color_cat" />
     <stroke
         android:width="0.100000024dip"
-        android:color="#00ffffff" />
+        android:color="@color/transparent" />
     <corners
         android:bottomLeftRadius="6.0dip"
         android:bottomRightRadius="6.0dip"

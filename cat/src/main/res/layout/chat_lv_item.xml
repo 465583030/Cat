@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#00000000"
+    android:background="@color/transparent"
     android:padding="3dp">
 
     <TextView
@@ -10,9 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text=""
-        android:textColor="#dce2dfdf"
-        android:textSize="9sp" />
+        android:text="2018-05-06 15:32:06"
+        android:textColor="@color/cha_item_time_text_color"
+        android:textSize="@dimen/chat_item_time_text_size" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,12 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="50dp"
-            android:background="#00000000"
+            android:background="@color/transparent"
             android:orientation="horizontal"
             android:visibility="visible">
 
             <com.zhr.cat.tools.CircleImageView
                 android:id="@+id/iv_cat_head"
+                android:layout_marginLeft="10dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/pic_cat_head" />
@@ -39,13 +40,13 @@
                 android:id="@+id/cat_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/chat_client"
+                android:background="@drawable/chat_cat"
                 android:gravity="center_vertical"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:padding="6dp"
                 android:text="我嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个一个嘎嘎嘎一个一个嘎嘎嘎一个一个嘎嘎嘎一个一个嘎嘎嘎一个一个嘎嘎嘎一个一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个嘎嘎嘎一个v"
-                android:textColor="#d7d3e4"
+                android:textColor="@color/chat_item_text_color"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -55,22 +56,23 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="50dp"
-            android:background="#00000000">
+            android:background="@color/transparent">
 
             <com.zhr.cat.tools.CircleImageView
                 android:id="@+id/iv_client_head"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginRight="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:src="@drawable/pic_client_head" />
 
             <TextView
-                android:id="@+id/chatto_content"
+                android:id="@+id/client_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/iv_client_head"
-                android:background="@drawable/chat_cat"
+                android:background="@drawable/chat_client"
                 android:gravity="center_vertical"
                 android:padding="6dp"
                 android:layout_marginTop="10dp"

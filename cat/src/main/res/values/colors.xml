@@ -32,4 +32,8 @@
     <color name="colorPrimary">#b83ac1</color>
     <color name="colorPrimaryDark">#5e2d6b</color>
     <color name="colorAccent">#883366</color>
+    <color name="chat_item_text_color">#d7d3e4</color>
+    <color name="cha_item_time_text_color">#dce2dfdf</color>
+    <color name="chat_item_text_bg_color_cat">#ae2f219b</color>
+    <color name="chat_item_text_bg_color_client">#ae90219b</color>
 </resources>

@@ -55,7 +55,7 @@ public class IFlyTEKVoiceTalk implements IVoiceTalk {
         //2.合成参数设置，详见《MSC Reference Manual》SpeechSynthesizer 类
         //设置发音人（更多在线发音人，用户可参见 附录13.2
         mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan"); //设置发音人
-        mTts.setParameter(SpeechConstant.SPEED, "60");//设置语速
+        mTts.setParameter(SpeechConstant.SPEED, "65");//设置语速
         mTts.setParameter(SpeechConstant.VOLUME, "80");//设置音量，范围 0~100
         mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端,用到讯飞服务器
         //设置合成音频保存位置（可自定义保存位置），保存在“./sdcard/iflytek.pcm”

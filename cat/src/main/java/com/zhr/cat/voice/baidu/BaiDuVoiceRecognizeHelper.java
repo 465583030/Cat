@@ -92,6 +92,7 @@ public class BaiDuVoiceRecognizeHelper implements EventListener, IVoiceRecognize
         } else if (name.equals(SpeechConstant.CALLBACK_EVENT_ASR_FINISH)) {
             if (voiceRecognizeEventListener != null) {
                 voiceRecognizeEventListener.onFinishRecognize(lastResult);
+                lastResult = "";
             }
             try {
                 JSONObject jsonObject = new JSONObject(params);

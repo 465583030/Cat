@@ -12,10 +12,14 @@
     <string name="str_checkup">检查更新</string>
     <string name="title_activity_setting">设置</string>
     <string name="copyright" translatable="false">Copyright©2018 ZHR All rights reserved</string>
-    <string name="open_title">智能手机助手</string>
+    <string name="open_title">智能语音手机助手</string>
     <string name="welcomeTalkString">你好！欢迎使用Cat手机助手！</string>
     <string name="first_start_button_text">开启人工智能之旅！</string>
     <string name="setting_title">设置</string>
     <string name="window_setting">界面设置</string>
     <string name="send_button_text">发送</string>
+    <string name="version" translatable="false">1.0</string>
+    <string name="tip_exception">发生了异常，请稍后重试</string>
+    <string name="recognize_start">开始识别</string>
+    <string name="recognize_on">识别中</string>
 </resources>

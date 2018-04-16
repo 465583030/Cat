@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zhr.cat.R;
@@ -118,6 +120,11 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
      * 显示聊天内容
      */
     private ListView lv_content;
+
+    /**
+     * 点击麦克风弹出的TextView
+     */
+    private TextView tv_microphone_tip;
     /**
      * 存储所有的聊天信息
      */
@@ -131,10 +138,10 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
      */
     protected static final int CAT_PROCESS_FINISH = 1;
     private MyListViewAdapter myAdapter;
-    private TextInfoDAO dao;// TextInfo Database Access Object
     /**
-     * 来自 客户的消息
+     * TextInfo Database Access Object
      */
+    private TextInfoDAO dao;
 
     /**
      * 相机FrameLayout
@@ -149,7 +156,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
     /**
      * 是否用了唤醒
      */
-    private boolean useWakeupFlag = false;
+    private boolean useWakeup = false;
     /**
      * 聊天机器人
      */
@@ -179,21 +186,22 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         // 加载控件
-        civ_user = (CircleImageView) findViewById(R.id.civ_user);
-        ib_camera = (ImageButton) findViewById(R.id.ib_camera);
-        ib_face = (ImageButton) findViewById(R.id.ib_face);
-        ib_microphone = (ImageButton) findViewById(R.id.ib_microphone);
-        ib_image = (ImageButton) findViewById(R.id.ib_image);
-        ib_add = (ImageButton) findViewById(R.id.ib_add);
-        ll_microphone = (LinearLayout) findViewById(R.id.ll_microphone);
-        ll_image = (LinearLayout) findViewById(R.id.ll_image);
-        ll_add = (LinearLayout) findViewById(R.id.ll_add);
-        ll_camera_and_face = (LinearLayout) findViewById(R.id.ll_camera_and_face);
-        ll_camera = (LinearLayout) findViewById(R.id.ll_camera);
-        ll_face = (LinearLayout) findViewById(R.id.ll_face);
-        et_content = (EditText) findViewById(R.id.et_content);
-        bt_send = (Button) findViewById(R.id.bt_send);
-        lv_content = (ListView) findViewById(R.id.lv_content);
+        civ_user = findViewById(R.id.civ_user);
+        ib_camera = findViewById(R.id.ib_camera);
+        ib_face = findViewById(R.id.ib_face);
+        ib_microphone = findViewById(R.id.ib_microphone);
+        ib_image = findViewById(R.id.ib_image);
+        ib_add = findViewById(R.id.ib_add);
+        ll_microphone = findViewById(R.id.ll_microphone);
+        ll_image = findViewById(R.id.ll_image);
+        ll_add = findViewById(R.id.ll_add);
+        ll_camera_and_face = findViewById(R.id.ll_camera_and_face);
+        ll_camera = findViewById(R.id.ll_camera);
+        ll_face = findViewById(R.id.ll_face);
+        et_content = findViewById(R.id.et_content);
+        bt_send = findViewById(R.id.bt_send);
+        lv_content = findViewById(R.id.lv_content);
+        tv_microphone_tip = findViewById(R.id.tv_microphone_tip);
 
         flCamera = findViewById(R.id.flCamera);
         CameraPreview mPreview = new CameraPreview(this);
@@ -344,8 +352,11 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
     }
 
     private void onClickSend() {
+        /**获取内容*/
         String textFromClient = et_content.getText().toString().trim();
+        /**置空输入框*/
         et_content.setText("");
+        /**处理用户发来的消息*/
         sendMessage(textFromClient);
     }
 
@@ -354,7 +365,9 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         currentTextInfo.setContent(content);
         currentTextInfo.setTime(System.currentTimeMillis());
         currentTextInfo.setType(1);
+        /**存储消息到消息列表*/
         textInfos.add(currentTextInfo);
+        /**界面更新*/
         myAdapter.setList(textInfos);
         myAdapter.notifyDataSetChanged();
         dao.add(currentTextInfo.getContent(), currentTextInfo.getType(), currentTextInfo.getTime());
@@ -378,9 +391,10 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
                     myService.talk(chat);
                     return chat;
                 } catch (Exception e) {
-                    myService.talk("发生了异常请稍候重试");
+                    String ex = getText(R.string.tip_exception).toString();
+                    myService.talk(ex);
                     e.printStackTrace();
-                    return "发生了异常请稍候重试";
+                    return ex;
                 }
             }
         }.start();
@@ -444,6 +458,11 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
                 selectState[SELECT_STATE_MICROPHONE] = false;
                 ib_microphone.setImageResource(R.drawable.pic_main_microphone_off);
                 ll_microphone.setVisibility(View.GONE);
+                /**
+                 * 关闭语音识别  同时开启语音唤醒 TODO
+                 */
+                myService.getVoiceRecognizeHelper().stopRecognize();
+                myService.getWakeupHelper().startWakeup();
             }
         } else {
             selectState[SELECT_STATE_MICROPHONE] = true;
@@ -458,6 +477,12 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
             ll_add.setVisibility(View.GONE);
             ib_add.setImageResource(R.drawable.pic_main_add_off);
             selectState[SELECT_STATE_ADD] = false;
+            /**
+             * 开启麦克风进行语音识别  同时关闭语音唤醒   TODO
+             */
+            useWakeup = false;
+            myService.getWakeupHelper().stopWakeup();
+            myService.getVoiceRecognizeHelper().startRecognize();
         }
     }
 
@@ -516,11 +541,23 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         startActivity(intent);
     }
 
+
+    @Override
+    protected void onDestroy() {
+        saveState();
+        unbindService(this);
+        super.onDestroy();
+    }
+
+
+    /**
+     * 服务相关开始
+     */
     @Override
     public void onServiceConnected(ComponentName name, IBinder binder) {
         myService = ((MyService.EchoServiceBinder) binder).getMyService();
         //   myService.talk("欢迎！");
-        System.out.println("ChatActivity onService Connected. ");
+        //System.out.println("ChatActivity onService Connected. ");
         myService.setVoiceRecognizeEventListener(this);
         myService.setWakeupEventListener(this);
         myService.getWakeupHelper().startWakeup();
@@ -531,19 +568,17 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
 
     }
 
-    @Override
-    protected void onDestroy() {
-        saveState();
-        unbindService(this);
-        super.onDestroy();
-    }
-
     /**
      * 语音识别接口开始
      */
     @Override
     public void onStartRecognize() {
-
+        if (!useWakeup) {
+            /**
+             * 设置View 识别开始
+             */
+            tv_microphone_tip.setText(R.string.recognize_start);
+        }
     }
 
     @Override
@@ -553,19 +588,32 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
 
     @Override
     public void onFinishRecognize(String result) {
+        System.out.println("ChatActivity.onFinishRecognize result:"+result);
         et_content.setText(result);
-        if (useWakeupFlag) {
+        Selection.setSelection(et_content.getText(), et_content.getText().length());
+        if (useWakeup) {
             sendMessage(wakeupWord + result);
             et_content.setText("");
+        } else {
+            /**关闭语音识别  同时关闭View */
+            myService.getVoiceRecognizeHelper().stopRecognize();
+            /**隐藏麦克风提示  设置图片*/
+            selectState[SELECT_STATE_MICROPHONE] = false;
+            ib_microphone.setImageResource(R.drawable.pic_main_microphone_off);
+            ll_microphone.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void onRecognize(String result) {
-        if (useWakeupFlag) {
+        if (useWakeup) {
             et_content.setText(wakeupWord + result);
+            Selection.setSelection(et_content.getText(), et_content.getText().length());
         } else {
             et_content.setText(result);
+            Selection.setSelection(et_content.getText(), et_content.getText().length());
+            /**设置View  识别中*/
+            tv_microphone_tip.setText(R.string.recognize_on);
         }
     }
 
@@ -576,7 +624,12 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
 
     @Override
     public void onError(VoiceRecognizeError error) {
-
+        if (!useWakeup) {
+            /**
+             * 设置View 识别异常
+             */
+            tv_microphone_tip.setText(error.getMessage());
+        }
     }
 
     /**
@@ -593,8 +646,11 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
 
     @Override
     public void onWakeupSuccess(String word) {
+        /**保存关键词*/
         wakeupWord = word;
-        useWakeupFlag = true;
+        /**设置语音唤醒成功标志*/
+        useWakeup = true;
+        /**开启语音识别*/
         myService.getVoiceRecognizeHelper().startRecognize();
     }
 

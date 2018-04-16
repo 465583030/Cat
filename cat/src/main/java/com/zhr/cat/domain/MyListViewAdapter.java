@@ -62,7 +62,7 @@ public class MyListViewAdapter extends BaseAdapter implements ListAdapter {
             holder.catContainer = convertView.findViewById(R.id.cat_container);
             holder.clientContainer = convertView.findViewById(R.id.client_container);
             holder.catContent = convertView.findViewById(R.id.cat_content);
-            holder.clientContent = convertView.findViewById(R.id.chatto_content);
+            holder.clientContent = convertView.findViewById(R.id.client_content);
             holder.time = convertView.findViewById(R.id.chat_time);
             convertView.setTag(holder);
         } else {
