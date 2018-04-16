@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -33,6 +34,7 @@ import com.zhr.cat.services.MyService;
 import com.zhr.cat.tools.ChatImpl;
 import com.zhr.cat.tools.CircleImageView;
 import com.zhr.cat.tools.IChat;
+import com.zhr.cat.tools.StringUtils;
 import com.zhr.cat.tools.camera.CameraPreview;
 import com.zhr.cat.voice.interfaces.IVoiceRecognizeEventListener;
 import com.zhr.cat.voice.interfaces.IWakeupEventListener;
@@ -160,13 +162,16 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
     /**
      * 聊天机器人
      */
+
     private IChat chater = new ChatImpl();
+    @SuppressWarnings("all")
     private Handler myHandler = new Handler() {// 处理消息的handler
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case CAT_PROCESS_FINISH:
+                    String content = (String) msg.obj;
                     currentTextInfo = new TextInfo();
-                    currentTextInfo.setContent((String) msg.obj);
+                    currentTextInfo.setContent(content);
                     currentTextInfo.setTime(System.currentTimeMillis());
                     currentTextInfo.setType(0);
                     textInfos.add(currentTextInfo);
@@ -367,11 +372,13 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
         currentTextInfo.setType(1);
         /**存储消息到消息列表*/
         textInfos.add(currentTextInfo);
-        /**界面更新*/
+        /**添加数据到适配器*/
         myAdapter.setList(textInfos);
         myAdapter.notifyDataSetChanged();
+        /**添加数据到数据库*/
         dao.add(currentTextInfo.getContent(), currentTextInfo.getType(), currentTextInfo.getTime());
         currentTextInfo = null;
+        /**处理来自客户端的字符串*/
         new Thread() {
             @Override
             public synchronized void start() {
@@ -381,23 +388,57 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
             public void run() {
                 Message msg = new Message();
                 msg.what = CAT_PROCESS_FINISH;
-                msg.obj = processContent(content);
+                /**处理得到的字符串*/
+                String processResult = processContent(content);
+                msg.obj = processResult;
+                /**说出回应的话*/
+                myService.talk(processResult);
+                /**更新到UI*/
                 myHandler.sendMessage(msg);
             }
 
             private String processContent(String textFromClient) {
-                try {
-                    String chat = chater.chat(IChat.ChatType.TYPE_TEXT, textFromClient);
-                    myService.talk(chat);
-                    return chat;
-                } catch (Exception e) {
-                    String ex = getText(R.string.tip_exception).toString();
-                    myService.talk(ex);
-                    e.printStackTrace();
-                    return ex;
+                if (StringUtils.isNotEmpty(getAppName(textFromClient))) {
+                    return getText(R.string.action_open_app) + getAppName(textFromClient);
+                } else if (StringUtils.isNotEmpty(getCallName(textFromClient))) {
+                    return getText(R.string.action_call_start) + getAppName(textFromClient) + getText(R.string.action_call_end);
+                } else {
+                    try {
+                        return chater.chat(IChat.ChatType.TYPE_TEXT, textFromClient);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return getText(R.string.tip_exception).toString();
+                    }
                 }
             }
         }.start();
+    }
+
+    /**
+     * 获取要打电话的人 同时拨打电话
+     *
+     * @param textFromClient 来自客户的文本
+     * @return 有人名返回人名 没有返回尾号 其他返回null
+     */
+    private String getCallName(String textFromClient) {
+        //TODO
+        String callName = null;
+
+        return callName;
+    }
+
+    /**
+     * 返回App的名称 同时打开App
+     *
+     * @param textFromClient 来自客户的文本
+     * @return 有则返回 没有则返回null
+     */
+    private String getAppName(String textFromClient) {
+        //TODO
+        String appName = null;
+        PackageManager packageManager = getPackageManager();
+        packageManager.getInstalledApplications(0);
+        return appName;
     }
 
     /**
@@ -458,9 +499,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
                 selectState[SELECT_STATE_MICROPHONE] = false;
                 ib_microphone.setImageResource(R.drawable.pic_main_microphone_off);
                 ll_microphone.setVisibility(View.GONE);
-                /**
-                 * 关闭语音识别  同时开启语音唤醒 TODO
-                 */
+                /**关闭语音识别  同时开启语音唤醒*/
                 myService.getVoiceRecognizeHelper().stopRecognize();
                 myService.getWakeupHelper().startWakeup();
             }
@@ -468,7 +507,6 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
             selectState[SELECT_STATE_MICROPHONE] = true;
             ib_microphone.setImageResource(R.drawable.pic_main_microphone_on);
             ll_microphone.setVisibility(View.VISIBLE);
-
             /** 处理Image相关事件 */
             ll_image.setVisibility(View.GONE);
             ib_image.setImageResource(R.drawable.pic_main_image_off);
@@ -477,9 +515,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
             ll_add.setVisibility(View.GONE);
             ib_add.setImageResource(R.drawable.pic_main_add_off);
             selectState[SELECT_STATE_ADD] = false;
-            /**
-             * 开启麦克风进行语音识别  同时关闭语音唤醒   TODO
-             */
+            /**开启麦克风进行语音识别  同时关闭语音唤醒*/
             useWakeup = false;
             myService.getWakeupHelper().stopWakeup();
             myService.getVoiceRecognizeHelper().startRecognize();
@@ -555,11 +591,12 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
      */
     @Override
     public void onServiceConnected(ComponentName name, IBinder binder) {
+        /**获取服务*/
         myService = ((MyService.EchoServiceBinder) binder).getMyService();
-        //   myService.talk("欢迎！");
-        //System.out.println("ChatActivity onService Connected. ");
+        /**设置监听*/
         myService.setVoiceRecognizeEventListener(this);
         myService.setWakeupEventListener(this);
+        /**开启语音唤醒*/
         myService.getWakeupHelper().startWakeup();
     }
 
@@ -574,9 +611,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
     @Override
     public void onStartRecognize() {
         if (!useWakeup) {
-            /**
-             * 设置View 识别开始
-             */
+            /**设置View 识别开始*/
             tv_microphone_tip.setText(R.string.recognize_start);
         }
     }
@@ -588,7 +623,6 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
 
     @Override
     public void onFinishRecognize(String result) {
-        System.out.println("ChatActivity.onFinishRecognize result:"+result);
         et_content.setText(result);
         Selection.setSelection(et_content.getText(), et_content.getText().length());
         if (useWakeup) {
@@ -625,9 +659,7 @@ public class ChatActivity extends Activity implements OnClickListener, ServiceCo
     @Override
     public void onError(VoiceRecognizeError error) {
         if (!useWakeup) {
-            /**
-             * 设置View 识别异常
-             */
+            /**设置View 识别异常*/
             tv_microphone_tip.setText(error.getMessage());
         }
     }

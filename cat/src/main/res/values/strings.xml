@@ -22,4 +22,7 @@
     <string name="tip_exception">发生了异常，请稍后重试</string>
     <string name="recognize_start">开始识别</string>
     <string name="recognize_on">识别中</string>
+    <string name="action_open_app">正在为您打开</string>
+    <string name="action_call_start">正在给</string>
+    <string name="action_call_end">打电话</string>
 </resources>
