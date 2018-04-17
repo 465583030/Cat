@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         List<ApplicationInfo> installedApplications = packageManager.getInstalledApplications(0);
         for (ApplicationInfo info : installedApplications) {
             String string =info.name + info.packageName +info.backupAgentName+info.manageSpaceActivityName;
-            System.out.println("string = " + string);
+          //  System.out.println("string = " + string);
         }
     }
 }
