@@ -16,7 +16,6 @@ import android.view.View;
 public class CatFace extends View {
     Paint paint;
     int color = Color.rgb(20, 200, 226);
-
     public CatFace(Context context) {
         super(context);
 
